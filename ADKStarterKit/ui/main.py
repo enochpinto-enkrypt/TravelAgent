@@ -21,6 +21,10 @@ import json
 import asyncio
 from pathlib import Path
 
+# ── Load environment variables ────────────────────────────────────────────────
+from dotenv import load_dotenv
+load_dotenv()
+
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
@@ -50,6 +54,12 @@ except ImportError as e:
 
 # ── Session service & runner ──────────────────────────────────────────────────
 session_service = InMemorySessionService()
+
+# Verify API key is available
+api_key = os.getenv("GOOGLE_API_KEY")
+if not api_key:
+    raise ValueError("⚠️  GOOGLE_API_KEY not found in environment variables. Please check your .env file.")
+
 runner = Runner(
     agent=root_agent,
     app_name=APP_NAME,
