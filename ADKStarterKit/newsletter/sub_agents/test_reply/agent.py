@@ -11,7 +11,7 @@ Do not call external tools or sub-agents—this agent is for quick reply testing
 
 
 reply_test_agent = Agent(
-    model="gemini-2.0-flash-lite",
+    model="gemini-2.5-flash",
     name="reply_test_agent",
     description="Simple agent that replies to user messages for quick manual testing.",
     instruction=REPLY_AGENT_INSTR,

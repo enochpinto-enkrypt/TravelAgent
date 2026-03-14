@@ -16,7 +16,7 @@ from travel_concierge.prompt import ROOT_AGENT_INSTR
 
 
 root_agent = Agent(
-    model="gemini-2.0-flash-lite",
+    model="gemini-2.5-flash",
     name="root_agent",
     description="A Travel concierge",
     instruction=ROOT_AGENT_INSTR,

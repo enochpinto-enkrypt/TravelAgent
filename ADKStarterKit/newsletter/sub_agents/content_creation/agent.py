@@ -14,7 +14,7 @@ from google.adk.agents import Agent
 
 
 intro_agent = Agent(
-    model="gemini-2.0-flash-lite",
+    model="gemini-2.5-flash",
     name="intro_agent",
     instruction=INTRO_AGENT_INSTR,
     description="This agent crafts the intro of the newsletter based on the info provided by newsletter_agent.",
@@ -23,7 +23,7 @@ intro_agent = Agent(
 )
 
 review_agent = Agent(
-    model="gemini-2.0-flash-lite",
+    model="gemini-2.5-flash",
     name="review_agent",
     description="This agent crafts the review of the newsletter based on the info provided by newsletter_agent.",
     instruction=REVIEW_AGENT_INSTR,
@@ -32,7 +32,7 @@ review_agent = Agent(
 )
 
 body_agent = Agent(
-    model="gemini-2.0-flash-lite",
+    model="gemini-2.5-flash",
     name="body_agent",
     description="This agent crafts the body of the newsletter based on the info provided by newsletter_agent.",
     instruction=BODY_AGENT_INSTR,
@@ -41,7 +41,7 @@ body_agent = Agent(
 )
 
 conclusion_agent = Agent(
-    model="gemini-2.0-flash-lite",
+    model="gemini-2.5-flash",
     name="conclusion_agent",
     description="This agent crafts the conclusion of the newsletter based on the info provided by newsletter_agent.",
     instruction=CONCLUSION_AGENT_INSTR,
@@ -72,7 +72,7 @@ newsletter_agent = SequentialAgent(
 )
 
 writer_agent = Agent(
-    model="gemini-2.0-flash-lite",
+    model="gemini-2.5-flash",
     name="writer_agent",
     sub_agents=[newsletter_agent],
     

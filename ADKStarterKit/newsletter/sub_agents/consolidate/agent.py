@@ -11,7 +11,7 @@ from newsletter.sub_agents.content_creation.agent import writer_agent
 from newsletter.sub_agents.marketer.agent import marketer_agent
 from newsletter.sub_agents.consolidate.prompt import CONSOLIDATE_AGENT_INSTR
 consolidate_agent = Agent(
-    model="gemini-2.0-flash-lite",
+    model="gemini-2.5-flash",
     name="consolidate_agent",
     description="""An agent who can allocate work to the subagents.""",
     instruction=CONSOLIDATE_AGENT_INSTR,
