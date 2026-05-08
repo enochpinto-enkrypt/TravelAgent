@@ -1,5 +1,6 @@
 // Session (persisted in memory for the tab lifetime)
 let currentSessionId = null;
+let latestItineraryText = '';
 
 function getTime() {
   const now = new Date();
@@ -75,6 +76,8 @@ function finalizeStreamingBubble(fullText) {
   content.removeAttribute('id');
   const timeEl = document.getElementById('streamingTime');
   if (timeEl) { timeEl.textContent = getTime(); timeEl.removeAttribute('id'); }
+
+  latestItineraryText = fullText;
 
   const dayPattern = /day\s*\d+/gi;
   const hasItinerary = (fullText.match(dayPattern) || []).length >= 2;
@@ -251,7 +254,37 @@ document.getElementById('messageInput').addEventListener('keydown', e => {
 });
 
 function downloadItinerary() {
-  alert('Connect to your backend to generate a PDF from the itinerary.');
+  if (!latestItineraryText.trim()) {
+    alert('Generate an itinerary first, then download the PDF.');
+    return;
+  }
+
+  fetch('/itinerary/pdf', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      session_id: currentSessionId,
+      itinerary_text: latestItineraryText,
+    }),
+  })
+    .then(async (response) => {
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({}));
+        throw new Error(error.detail || `HTTP ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const link = document.createElement('a');
+      link.href = data.download_url;
+      link.download = data.filename || 'itinerary.pdf';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    })
+    .catch((err) => {
+      alert(`Unable to generate PDF: ${err.message}`);
+    });
 }
 
 function makeChanges() {
