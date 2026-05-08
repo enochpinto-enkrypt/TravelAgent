@@ -19,7 +19,7 @@ from newsletter.sub_agents.consolidate.agent import consolidate_agent
 
 from newsletter.sub_agents.content_creation.agent import writer_agent
 root_agent = Agent(
-    model="gemini-2.0-flash-001",
+    model="gemini-2.5-flash",
     name="root_agent",
     description="A newsletter content creator",
     instruction=ROOT_AGENT_INSTR,

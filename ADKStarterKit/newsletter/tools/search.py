@@ -1,7 +1,7 @@
 """Wrapper to Google Search Grounding with custom prompt and travel helpers.
 
 Exports AgentTool wrappers that use the `google_search` tool to ground
-answers and to perform high-level flights/hotels searches (via web search).
+answers and to perform high-level hotel searches (via web search).
 """
 
 from google.adk.agents import Agent
@@ -29,25 +29,6 @@ _search_agent = Agent(
 
 
 google_search_grounding = AgentTool(agent=_search_agent)
-
-
-# Flight search agent: uses web search to find current flight options, carriers,
-# approximate prices and booking links for the requested route and dates.
-_flight_agent = Agent(
-    model="gemini-2.5-flash",
-    name="google_flight_search",
-    description="Find flight options and booking links using web search",
-    instruction="""
-    You are a travel assistant. Use the `google_search` tool to find current
-    flight options for the given origin, destination and dates. Return a
-    short list of top options with carrier, approximate price, departure/arrival
-    times, and a booking link. If exact prices are unavailable, indicate ranges.
-    Return results as bullet points; include why each option might matter to the traveler.
-    """,
-    tools=[google_search],
-)
-
-google_flight_search = AgentTool(agent=_flight_agent)
 
 
 # Hotel search agent: uses web search to find nearby hotels with price ranges,

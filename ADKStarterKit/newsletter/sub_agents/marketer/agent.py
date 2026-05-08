@@ -71,7 +71,7 @@ root_research_agent = SequentialAgent(
 )
 
 marketer_agent = Agent(
-    model="gemini-2.0-flash",
+    model="gemini-2.5-flash",
     name="marketer_agent",
     description="""A marketer who knows how to tie back to his audience's profile and their interests.
     You can use the root_research_agent and user_research_agent as tools to help you with your research.""",
